@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interior Design Services - LAYDS Interiors</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- INTERIOR DESIGN PAGE THEME --- */
+        
+        :root {
+            --primary-color: #2c3e50; /* Deep Charcoal - Professional & Sophisticated */
+            --secondary-color: #f8f9fa; /* Soft White - Clean & Minimalist */
+            --accent-color: #c0392b; /* Warm Burgundy - Luxurious & Inviting */
+            --text-color: #333;
+            --light-text-color: #ffffff;
+            --body-font: 'Roboto', sans-serif;
+            --heading-font: 'Playfair Display', serif;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: var(--body-font);
+            color: var(--text-color);
+            background-color: var(--light-text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Animations --- */
+        .fade-in {
+            animation: fadeIn 1.2s ease-in-out forwards;
+        }
+        .slide-up {
+            transform: translateY(50px);
+            opacity: 0;
+            transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+        }
+        .slide-up.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- Header (Consistent with Homepage) --- */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav.container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--heading-font);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        /* --- Hero Section for Interior Design Page --- */
+        .interior-hero {
+            height: 70vh;
+            color: var(--light-text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background-color: var(--primary-color);
+        }
+        
+        .interior-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.85)),
+                url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        .interior-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .interior-hero h1 {
+            font-family: var(--heading-font);
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .interior-hero p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- General Section Styling --- */
+        .content-section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-family: var(--heading-font);
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* --- Our Philosophy Section --- */
+        .philosophy-section {
+            background-color: var(--secondary-color);
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .philosophy-card {
+            background: var(--light-text-color);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .philosophy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+        
+        .philosophy-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* --- Service Selection Section --- */
+        .service-section {
+            background-color: var(--light-text-color);
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .service-card {
+            background: var(--light-text-color);
+            border: 3px solid transparent;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .service-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(192, 57, 43, 0.15);
+        }
+
+        .service-card.selected {
+            border-color: var(--accent-color);
+            background: linear-gradient(135deg, #fff5f5 0%, #ffeaea 100%);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .service-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .service-card p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* --- Portfolio Section --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            height: 300px;
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(44, 62, 80, 0.9), transparent);
+            color: var(--light-text-color);
+            padding: 3rem 1.5rem 1.5rem 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+        
+        .portfolio-overlay h3 {
+            font-family: var(--heading-font);
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .portfolio-overlay p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* --- Our Process Section --- */
+        .process-section {
+            background-color: var(--secondary-color);
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-top: 4rem;
+            position: relative;
+        }
+        
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 5%;
+            right: 5%;
+            height: 2px;
+            background-color: #ddd;
+            z-index: 1;
+        }
+        
+        .process-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: 4px solid var(--secondary-color);
+        }
+        
+        .process-step h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        /* --- AI Design Brief Section --- */
+        .ai-brief-section {
+            background-color: var(--light-text-color);
+        }
+        .ai-brief-form {
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .ai-select, .ai-textarea {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-family: var(--body-font);
+            transition: border-color 0.3s ease;
+        }
+
+        .ai-select:focus, .ai-textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .ai-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        #ai-brief-results {
+            margin-top: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            background: var(--secondary-color);
+            display: none;
+        }
+        .generated-brief h4 {
+            font-family: var(--heading-font);
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .ai-loader {
+            text-align: center;
+        }
+
+        /* --- CTA Section --- */
+        .cta-section {
+            background-color: var(--accent-color);
+            color: var(--light-text-color);
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-family: var(--heading-font);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-button {
+            background-color: var(--light-text-color);
+            color: var(--accent-color);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 1rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--primary-color);
+            color: #fff;
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .interior-hero h1 { font-size: 2.5rem; }
+            .process-steps { flex-direction: column; gap: 3rem; }
+            .process-steps::before { display: none; }
+            .form-row { grid-template-columns: 1fr; }
+            .service-grid { grid-template-columns: 1fr; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">LAYDS</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="interior-hero">
+            <div class="interior-hero-content fade-in">
+                <h1>Interior Design Excellence</h1>
+                <p>We transform spaces into personal sanctuaries and professional havens. Our interior designs seamlessly blend aesthetics with functionality, creating environments that inspire, comfort, and reflect your unique personality and lifestyle.</p>
+            </div>
+        </section>
+
+        <!-- Our Philosophy Section -->
+        <section class="philosophy-section content-section">
+            <div class="container slide-up">
+                <h2 class="section-title">Design Philosophy</h2>
+                <p class="section-subtitle">Our approach to interior design is rooted in three fundamental principles: personalized aesthetics, functional beauty, and sustainable luxury. Every space we create tells a unique story while serving its inhabitants perfectly.[23][30]</p>
+                
+                <div class="philosophy-grid">
+                    <div class="philosophy-card">
+                        <h3>Personalized Aesthetics</h3>
+                        <p>We believe every space should reflect the personality and lifestyle of its occupants. Our designs are never cookie-cutter solutions but thoughtfully crafted environments that speak to your individual taste and preferences.[30][34]</p>
+                    </div>
+                    <div class="philosophy-card">
+                        <h3>Functional Beauty</h3>
+                        <p>True interior design excellence lies in balancing form and function. We create spaces that are not only visually stunning but also highly practical and comfortable for daily living and working.[26][32]</p>
+                    </div>
+                    <div class="philosophy-card">
+                        <h3>Sustainable Luxury</h3>
+                        <p>Luxury doesn't have to come at the cost of our planet. We integrate eco-friendly materials, energy-efficient solutions, and timeless designs that stand the test of time while minimizing environmental impact.[39][23]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Selection Section -->
+        <section class="service-section content-section">
+            <div class="container slide-up">
+                <h2 class="section-title">Choose Your Interior Design Service</h2>
+                <p class="section-subtitle">Select the type of interior design service that best matches your project needs. Each specialization brings unique expertise and tailored solutions.</p>
+                
+                <div class="service-grid">
+                    <div class="service-card" data-service="residential">
+                        <span class="service-icon">🏠</span>
+                        <h3>Residential Design</h3>
+                        <p>Complete home interiors including living rooms, bedrooms, kitchens, bathrooms, and personalized spaces that reflect your lifestyle and preferences.[36][42]</p>
+                    </div>
+                    <div class="service-card" data-service="commercial">
+                        <span class="service-icon">🏢</span>
+                        <h3>Commercial Design</h3>
+                        <p>Office spaces, retail stores, restaurants, and hospitality venues designed to enhance productivity, customer experience, and brand identity.[37][40]</p>
+                    </div>
+                    <div class="service-card" data-service="luxury">
+                        <span class="service-icon">💎</span>
+                        <h3>Luxury Design</h3>
+                        <p>High-end residential and commercial projects featuring premium materials, bespoke furniture, and exclusive design elements for discerning clients.[38][41]</p>
+                    </div>
+                    <div class="service-card" data-service="sustainable">
+                        <span class="service-icon">🌿</span>
+                        <h3>Sustainable Design</h3>
+                        <p>Eco-friendly interiors using sustainable materials, energy-efficient systems, and biophilic design principles for environmentally conscious clients.[39][23]</p>
+                    </div>
+                    <div class="service-card" data-service="hospitality">
+                        <span class="service-icon">🍽️</span>
+                        <h3>Hospitality Design</h3>
+                        <p>Hotels, restaurants, cafes, and entertainment venues designed to create memorable guest experiences while supporting operational efficiency.[42][43]</p>
+                    </div>
+                    <div class="service-card" data-service="healthcare">
+                        <span class="service-icon">⚕️</span>
+                        <h3>Healthcare Design</h3>
+                        <p>Medical facilities, clinics, and wellness centers focused on creating healing environments that support patient comfort and staff efficiency.[39][36]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section class="portfolio-section content-section">
+            <div class="container slide-up">
+                <h2 class="section-title">Design Portfolio</h2>
+                <p class="section-subtitle">Explore our carefully curated selection of completed interior design projects that showcase our commitment to excellence and attention to detail.</p>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?q=80&w=2070&auto=format&fit=crop" alt="Modern Living Room">
+                        <div class="portfolio-overlay">
+                            <h3>The Modern Sanctuary</h3>
+                            <p>A contemporary living space that seamlessly blends comfort with sophisticated minimalism and smart home technology.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1556912173-3bb406ef7e77?q=80&w=2070&auto=format&fit=crop" alt="Luxury Kitchen">
+                        <div class="portfolio-overlay">
+                            <h3>Culinary Excellence</h3>
+                            <p>A luxury kitchen design featuring premium materials, state-of-the-art appliances, and an elegant island centerpiece.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2070&auto=format&fit=crop" alt="Office Space">
+                        <div class="portfolio-overlay">
+                            <h3>Corporate Innovation Hub</h3>
+                            <p>A modern office space designed to inspire creativity and collaboration while maintaining professional elegance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Design Brief Assistant Section -->
+        <section class="ai-brief-section content-section">
+            <div class="container slide-up">
+                <h2 class="section-title">AI Design Brief Assistant</h2>
+                <p class="section-subtitle">Describe your vision and requirements, and our AI will help you craft a comprehensive design brief to kickstart your interior design journey.</p>
+                <div class="ai-brief-form">
+                    <div class="form-row">
+                        <select id="space-type" class="ai-select">
+                            <option value="">Select Space Type</option>
+                            <option value="residential-living">Living Room</option>
+                            <option value="residential-bedroom">Bedroom</option>
+                            <option value="residential-kitchen">Kitchen</option>
+                            <option value="residential-bathroom">Bathroom</option>
+                            <option value="residential-home-office">Home Office</option>
+                            <option value="commercial-office">Commercial Office</option>
+                            <option value="retail-store">Retail Store</option>
+                            <option value="restaurant">Restaurant/Cafe</option>
+                            <option value="hotel">Hotel/Hospitality</option>
+                            <option value="healthcare">Healthcare Facility</option>
+                        </select>
+                        <select id="design-style" class="ai-select">
+                            <option value="">Preferred Style</option>
+                            <option value="modern-minimalist">Modern Minimalist</option>
+                            <option value="contemporary">Contemporary</option>
+                            <option value="traditional">Traditional</option>
+                            <option value="industrial">Industrial</option>
+                            <option value="scandinavian">Scandinavian</option>
+                            <option value="bohemian">Bohemian</option>
+                            <option value="luxury-classic">Luxury Classic</option>
+                            <option value="rustic">Rustic</option>
+                            <option value="art-deco">Art Deco</option>
+                        </select>
+                    </div>
+                    <textarea id="ai-prompt-input" class="ai-textarea" placeholder="Describe your space, requirements, and vision. For example: 'I want to transform my 500 sq ft living room into a cozy yet modern space for a young family. It should have plenty of storage, be child-friendly, and incorporate warm colors. The room has large windows and high ceilings.'"></textarea>
+                    <button id="generate-brief-btn" class="cta-button">Generate Design Brief ✨</button>
+                </div>
+                <div id="ai-brief-results">
+                    <!-- AI generated content will appear here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Process Section -->
+        <section class="process-section content-section">
+            <div class="container slide-up">
+                <h2 class="section-title">Our Design Process</h2>
+                <p class="section-subtitle">We follow a systematic and collaborative approach to ensure your interior design project exceeds expectations from initial consultation to final installation.[22][25]</p>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-icon">01</div>
+                        <h4>Discovery & Consultation</h4>
+                        <p>We begin by understanding your lifestyle, preferences, functional needs, and budget to create a personalized design strategy.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon">02</div>
+                        <h4>Concept Development</h4>
+                        <p>Our team develops initial design concepts, mood boards, and spatial layouts that align with your vision and requirements.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon">03</div>
+                        <h4>3D Visualization</h4>
+                        <p>Experience your space before it's built with detailed 3D renderings, virtual walkthroughs, and material selections.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon">04</div>
+                        <h4>Implementation</h4>
+                        <p>Professional project management ensures seamless execution, quality control, and timely completion of your interior transformation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="cta-section content-section">
+            <div class="container slide-up">
+                <h2>Ready to Transform Your Space?</h2>
+                <p>Let's collaborate to create an interior that reflects your personality, meets your needs, and exceeds your expectations.</p>
+                <a href="javascript:void(0);" class="cta-button">Schedule Consultation</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 LAYDS Interior Design. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // --- Intersection Observer for Scroll Animations ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.slide-up').forEach(section => {
+            observer.observe(section);
+        });
+
+        // --- Service Selection Logic ---
+        const serviceCards = document.querySelectorAll('.service-card');
+        let selectedService = '';
+
+        serviceCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Remove selected class from all cards
+                serviceCards.forEach(c => c.classList.remove('selected'));
+                
+                // Add selected class to clicked card
+                card.classList.add('selected');
+                selectedService = card.dataset.service;
+                
+                // Store selection for later use
+                localStorage.setItem('selectedInteriorService', selectedService);
+                
+                // Smooth scroll to AI assistant
+                document.querySelector('.ai-brief-section').scrollIntoView({ 
+                    behavior: 'smooth' 
+                });
+            });
+        });
+
+        // --- AI Design Brief Assistant ---
+        const generateButton = document.getElementById('generate-brief-btn');
+        const promptInput = document.getElementById('ai-prompt-input');
+        const spaceType = document.getElementById('space-type');
+        const designStyle = document.getElementById('design-style');
+        const resultsContainer = document.getElementById('ai-brief-results');
+
+        generateButton.addEventListener('click', async () => {
+            const userPrompt = promptInput.value;
+            const selectedSpaceType = spaceType.value;
+            const selectedStyle = designStyle.value;
+            const selectedInteriorService = localStorage.getItem('selectedInteriorService') || 'general';
+
+            if (!userPrompt.trim()) {
+                alert('Please describe your space and vision in the text area.');
+                return;
+            }
+
+            // Show results container and loading state
+            resultsContainer.style.display = 'block';
+            resultsContainer.innerHTML = `<div class="ai-loader"><p>🎨 Analyzing your requirements and creating a personalized design brief...</p></div>`;
+            generateButton.disabled = true;
+            generateButton.textContent = 'Generating...';
+
+            // Simulate AI processing (replace with actual API call)
+            setTimeout(() => {
+                const mockBrief = {
+                    projectVision: `This ${selectedSpaceType || 'interior space'} will be transformed into a ${selectedStyle || 'beautifully designed'} environment that perfectly balances aesthetics with functionality. The design will create a harmonious space that reflects your personal style while optimizing comfort and usability for daily living.`,
+                    keyFeatures: [
+                        `Custom ${selectedStyle || 'contemporary'} design elements tailored to your lifestyle and preferences`,
+                        `Strategic space planning to maximize functionality and flow in your ${selectedSpaceType || 'space'}`,
+                        `Carefully curated color palette, materials, and finishes that create visual cohesion and ambiance`,
+                        `Integration of smart storage solutions and modern amenities for enhanced convenience`
+                    ],
+                    designApproach: `The design approach will focus on creating a ${selectedStyle || 'modern'} aesthetic while ensuring optimal functionality for your ${selectedSpaceType || 'interior space'}. We'll incorporate sustainable materials where possible and create a design that will remain timeless and relevant for years to come.`,
+                    serviceRecommendation: selectedInteriorService !== 'general' ? `Based on your selection, we recommend our ${selectedInteriorService} design service to best address your specific requirements.` : 'Our comprehensive design service will address all aspects of your project needs.'
+                };
+
+                // Display the formatted results
+                resultsContainer.innerHTML = `
+                    <div class="generated-brief">
+                        <h4>Project Vision</h4>
+                        <p>${mockBrief.projectVision}</p>
+                        
+                        <h4>Key Design Features</h4>
+                        <ul>
+                            ${mockBrief.keyFeatures.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                        
+                        <h4>Design Approach</h4>
+                        <p>${mockBrief.designApproach}</p>
+                        
+                        <h4>Service Recommendation</h4>
+                        <p>${mockBrief.serviceRecommendation}</p>
+                        
+                        <div style="margin-top: 2rem; padding: 1rem; background: #f0f8ff; border-radius: 8px; border-left: 4px solid var(--accent-color);">
+                            <strong>Next Steps:</strong> Our design team will contact you within 24 hours to discuss this brief and schedule your consultation.
+                        </div>
+                    </div>
+                `;
+
+            }, 2500);
+
+            // Reset after timeout
+            setTimeout(() => {
+                generateButton.disabled = false;
+                generateButton.innerHTML = 'Generate Design Brief ✨';
+            }, 2500);
+        });
+    </script>
+</body>
+</html>

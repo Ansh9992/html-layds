@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAYDS – Labour Services</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- GLOBAL THEME (inherits architecture palette for brand consistency) --- */
+        :root {
+            --primary-color: #1a2a4c;      /* Deep Blueprint Blue */
+            --secondary-color: #f4f7fa;    /* Light Structural Grey */
+            --accent-color:  #e67e22;      /* Burnt Orange Accent */
+            --text-color:    #333;
+            --light-text:    #ffffff;
+            --body-font:     'Roboto', sans-serif;
+            --heading-font:  'Playfair Display', serif;
+            --radius:        4px;
+        }
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{
+            font-family:var(--body-font);
+            color:var(--text-color);
+            background:#fff;
+            line-height:1.7;
+            overflow-x:hidden;
+        }
+        .container{width:90%;max-width:1200px;margin:0 auto}
+
+        /* --- ANIMATIONS --- */
+        .fade-in{animation:fadeIn 1.2s ease forwards}
+        .slide-up{transform:translateY(50px);opacity:0;transition:transform .8s ease,opacity .8s ease}
+        .slide-up.visible{transform:translateY(0);opacity:1}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+        /* --- HEADER --- */
+        header{
+            background:rgba(255,255,255,.85);
+            backdrop-filter:blur(10px);
+            border-bottom:1px solid #e0e0e0;
+            position:sticky;top:0;z-index:1000;
+            padding:1.2rem 0
+        }
+        nav.container{display:flex;justify-content:space-between;align-items:center}
+        .logo{
+            font-family:var(--heading-font);
+            font-size:2.2rem;
+            color:#2c3e50;
+            text-decoration:none
+        }
+        .nav-links{display:flex;gap:2rem;list-style:none}
+        .nav-links a{
+            text-decoration:none;
+            color:var(--text-color);
+            font-weight:500;
+            transition:color .3s
+        }
+        .nav-links a:hover{color:var(--accent-color)}
+
+        /* --- HERO --- */
+        .hero{
+            height:70vh;
+            color:var(--light-text);
+            display:flex;align-items:center;justify-content:center;text-align:center;
+            position:relative;background:var(--primary-color)
+        }
+        .hero::before{
+            content:"";position:absolute;inset:0;
+            background:
+                linear-gradient(rgba(26,42,76,.85),rgba(26,42,76,.85)),
+                url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=2070&q=80');
+            background-size:cover;background-position:center;z-index:1
+        }
+        .hero-content{position:relative;z-index:2}
+        .hero h1{font-family:var(--heading-font);font-size:3.5rem;margin-bottom:1rem}
+        .hero p{font-size:1.15rem;max-width:700px;margin:0 auto}
+
+        /* --- SECTION GENERICS --- */
+        .section{padding:6rem 0}
+        .section-title{
+            font-family:var(--heading-font);font-size:2.8rem;text-align:center;
+            color:var(--primary-color);margin-bottom:1rem
+        }
+        .section-sub{
+            text-align:center;font-size:1.05rem;color:#666;
+            max-width:700px;margin:0 auto 4rem
+        }
+
+        /* --- PHILOSOPHY --- */
+        .philosophy{background:var(--secondary-color)}
+        .philosophy-grid{
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem
+        }
+        .ph-card{
+            background:#fff;padding:2rem;border-radius:var(--radius);
+            box-shadow:0 10px 25px rgba(0,0,0,.08);text-align:center;
+            transition:transform .3s
+        }
+        .ph-card:hover{transform:translateY(-5px)}
+        .ph-card h3{color:var(--accent-color);margin-bottom:.8rem}
+
+        /* --- LABOUR CATEGORY SELECTOR --- */
+        .categories-grid{
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem
+        }
+        .cat-card{
+            background:#fff;padding:2rem;border:3px solid transparent;cursor:pointer;
+            border-radius:var(--radius);text-align:center;
+            box-shadow:0 10px 25px rgba(0,0,0,.1);transition:all .3s
+        }
+        .cat-card:hover{border-color:var(--primary-color);transform:translateY(-5px)}
+        .cat-icon{font-size:2.5rem;margin-bottom:1rem;display:block}
+        .cat-card.selected{background:#e8f2ff;border-color:var(--accent-color)}
+
+        /* --- PROCESS --- */
+        .process{background:var(--secondary-color)}
+        .steps{display:flex;justify-content:space-between;gap:2rem;margin-top:4rem;position:relative}
+        .steps::before{content:"";position:absolute;top:30px;left:5%;right:5%;height:2px;background:#ddd;z-index:1}
+        .step{flex:1;text-align:center;position:relative;z-index:2}
+        .step-num{
+            width:60px;height:60px;border-radius:50%;background:var(--primary-color);color:#fff;
+            display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-weight:700;border:4px solid var(--secondary-color)
+        }
+        .step h4{color:var(--primary-color);margin-bottom:.5rem}
+
+        /* --- AI LABOUR PLAN --- */
+        .ai-block{background:#fff;padding:3rem;border-radius:var(--radius);text-align:center;box-shadow:0 10px 25px rgba(0,0,0,.08)}
+        .ai-form{max-width:700px;margin:2rem auto}
+        .ai-form select,.ai-form textarea{
+            width:100%;padding:1rem;font-size:1rem;border:1px solid #ccc;border-radius:var(--radius);margin-bottom:1rem;font-family:var(--body-font)
+        }
+        .btn{
+            background:var(--accent-color);color:#fff;border:none;padding:1rem 2.5rem;
+            border-radius:var(--radius);font-weight:bold;cursor:pointer;transition:all .3s
+        }
+        .btn:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(0,0,0,.2)}
+
+        /* --- CTA & FOOTER --- */
+        .cta{background:var(--accent-color);color:#fff;text-align:center}
+        .cta h2{font-family:var(--heading-font);font-size:2.4rem;margin-bottom:.8rem}
+        footer{background:#2c3e50;color:#fff;text-align:center;padding:3rem 0;margin-top:2rem}
+
+        /* --- RESPONSIVE --- */
+        @media(max-width:768px){
+            .hero h1{font-size:2.5rem}
+            .steps{flex-direction:column;gap:3rem}.steps::before{display:none}
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="container">
+        <a href="index.html" class="logo">LAYDS</a>
+        <ul class="nav-links">
+            <li><a href="#philosophy">Philosophy</a></li>
+            <li><a href="#choose-labour">Choose Labour</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#ai-assist">AI Plan</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content fade-in">
+            <h1>Skilled Labour, On Demand</h1>
+            <p>From construction veterans to expert domestic helpers, LAYDS connects you with verified Indian workers for any project, anywhere.</p>
+        </div>
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <section id="philosophy" class="section philosophy slide-up">
+        <div class="container">
+            <h2 class="section-title">Service Philosophy</h2>
+            <p class="section-sub">Quality work, fair wages, and legal compliance form the backbone of every partnership we build.</p>
+
+            <div class="philosophy-grid">
+                <div class="ph-card">
+                    <h3>Worker Welfare</h3>
+                    <p>Transparent contracts, on-time payments, and safe working conditions for every labourer.</p>
+                </div>
+                <div class="ph-card">
+                    <h3>Skill Verification</h3>
+                    <p>Background checks and trade tests ensure you always hire proven expertise.</p>
+                </div>
+                <div class="ph-card">
+                    <h3>Sustainable Hiring</h3>
+                    <p>Long-term employment options that uplift workers and guarantee continuity for clients.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHOOSE LABOUR -->
+    <section id="choose-labour" class="section slide-up">
+        <div class="container">
+            <h2 class="section-title">Choose Your Labour</h2>
+            <p class="section-sub">Pick a category to match the perfect workers to your requirements.</p>
+
+            <div class="categories-grid">
+                <div class="cat-card" data-cat="construction">
+                    <span class="cat-icon">🏗️</span>
+                    <h4>Construction</h4>
+                    <p>Masons · Carpenters · Welders · Electricians</p>
+                </div>
+                <div class="cat-card" data-cat="agriculture">
+                    <span class="cat-icon">🌾</span>
+                    <h4>Agricultural</h4>
+                    <p>Harvesters · Machinery Operators · Livestock Handlers</p>
+                </div>
+                <div class="cat-card" data-cat="domestic">
+                    <span class="cat-icon">🏠</span>
+                    <h4>Domestic Help</h4>
+                    <p>Housekeepers · Cooks · Gardeners · Security Staff</p>
+                </div>
+                <div class="cat-card" data-cat="logistics">
+                    <span class="cat-icon">🚚</span>
+                    <h4>Transport & Logistics</h4>
+                    <p>Drivers · Loaders · Delivery Personnel</p>
+                </div>
+                <div class="cat-card" data-cat="hospitality">
+                    <span class="cat-icon">🍽️</span>
+                    <h4>Hospitality</h4>
+                    <p>Wait Staff · Event Crew · Cleaning Teams</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" class="section process slide-up">
+        <div class="container">
+            <h2 class="section-title">Our Process</h2>
+            <p class="section-sub">A seamless workflow from enquiry to deployment.</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">01</div>
+                    <h4>Requirement Analysis</h4>
+                    <p>We capture skill set, headcount, duration & location.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">02</div>
+                    <h4>Worker Matching</h4>
+                    <p>AI pairs your project with verified, available labourers.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">03</div>
+                    <h4>Verification & On-Boarding</h4>
+                    <p>ID checks, trade tests and briefing before dispatch.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">04</div>
+                    <h4>Deployment & Support</h4>
+                    <p>Workers arrive on-site; our coordinators monitor quality 24/7.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI LABOUR PLAN -->
+    <section id="ai-assist" class="section slide-up">
+        <div class="container">
+            <div class="ai-block">
+                <h2 class="section-title" style="margin-bottom:0">AI Labour Plan Assistant</h2>
+                <p class="section-sub" style="margin-top:.5rem">Describe your project and receive an instant staffing recommendation.</p>
+
+                <form class="ai-form" onsubmit="generatePlan(event)">
+                    <select name="project-type" required>
+                        <option value="">Project Type</option>
+                        <option value="construction">Construction</option>
+                        <option value="agriculture">Agriculture</option>
+                        <option value="manufacturing">Manufacturing</option>
+                        <option value="domestic">Domestic Services</option>
+                        <option value="events">Events & Hospitality</option>
+                        <option value="logistics">Transport & Logistics</option>
+                    </select>
+
+                    <select name="duration" required>
+                        <option value="">Duration</option>
+                        <option value="1-7 days">1-7 days</option>
+                        <option value="1-4 weeks">1-4 weeks</option>
+                        <option value="1-6 months">1-6 months</option>
+                        <option value="6+ months">> 6 months</option>
+                    </select>
+
+                    <textarea name="details" rows="4" placeholder="Location, number of workers, special skills…" required></textarea>
+
+                    <button class="btn" type="submit">Generate Plan</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta slide-up">
+        <div class="container">
+            <h2>Need Manpower Fast?</h2>
+            <p>Talk to our labour experts for a free, no-obligation quote.</p>
+            <a href="tel:1800-529-377" class="btn" style="background:#fff;color:var(--accent-color)">Call 1800-LABOUR</a>
+        </div>
+    </section>
+</main>
+
+<!-- FOOTER -->
+<footer id="contact">
+    <div class="container">
+        <p>&copy; 2025 LAYDS Workforce Solutions. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+/* --- SCROLL ANIMATIONS --- */
+const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+        if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
+    });
+},{threshold:.1});
+document.querySelectorAll('.slide-up').forEach(el=>io.observe(el));
+
+/* --- LABOUR CATEGORY SELECTION --- */
+const catCards=document.querySelectorAll('.cat-card');
+catCards.forEach(card=>{
+    card.addEventListener('click',()=>{
+        catCards.forEach(c=>c.classList.remove('selected'));
+        card.classList.add('selected');
+        localStorage.setItem('chosenCategory',card.dataset.cat);
+        // auto-scroll to AI form
+        document.getElementById('ai-assist').scrollIntoView({behavior:'smooth'});
+    });
+});
+
+/* --- AI PLAN (mock) --- */
+function generatePlan(e){
+    e.preventDefault();
+    const fd=new FormData(e.target);
+    const project=fd.get('project-type');
+    const duration=fd.get('duration');
+    const details=fd.get('details');
+    const category=localStorage.getItem('chosenCategory')||'general';
+
+    const btn=e.target.querySelector('.btn');
+    btn.textContent='Generating…';
+    btn.disabled=true;
+
+    setTimeout(()=>{
+        alert(`✅ Labour Plan\n\nCategory: ${category}\nProject: ${project}\nDuration: ${duration}\n\nRecommendation: 4-6 skilled workers.\nOur team will send detailed profiles & cost within 2 hours.`);
+        e.target.reset();
+        btn.textContent='Generate Plan';
+        btn.disabled=false;
+    },1800);
+}
+</script>
+</body>
+</html>

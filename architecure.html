@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architectural Services - LAYDS Constructions</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- ARCHITECTS PAGE THEME --- */
+        
+        :root {
+            --primary-color: #1a2a4c; /* Deep Blueprint Blue */
+            --secondary-color: #f4f7fa; /* Light Structural Grey */
+            --accent-color: #e67e22; /* Burnt Orange Accent */
+            --text-color: #333;
+            --light-text-color: #ffffff;
+            --body-font: 'Roboto', sans-serif;
+            --heading-font: 'Playfair Display', serif;
+            --border-radius: 4px;
+        }
+
+        body {
+            font-family: var(--body-font);
+            color: var(--text-color);
+            background-color: var(--light-text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Animations --- */
+        .fade-in {
+            animation: fadeIn 1.2s ease-in-out forwards;
+        }
+        .slide-up {
+            transform: translateY(50px);
+            opacity: 0;
+            transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+        }
+        .slide-up.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- Header (Consistent with Homepage) --- */
+        header {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav.container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--heading-font);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2c3e50; /* Match original logo color */
+            text-decoration: none;
+        }
+        
+        /* --- Hero Section for Architects Page --- */
+        .architect-hero {
+            height: 70vh;
+            color: var(--light-text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background-color: var(--primary-color);
+        }
+        
+        .architect-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(26, 42, 76, 0.85), rgba(26, 42, 76, 0.85)),
+                url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        .architect-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .architect-hero h1 {
+            font-family: var(--heading-font);
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .architect-hero p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- General Section Styling --- */
+        .content-section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-family: var(--heading-font);
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* --- Our Philosophy Section --- */
+        .philosophy-section {
+            background-color: var(--secondary-color);
+        }
+
+        /* --- Portfolio Section --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(26, 42, 76, 0.9), transparent);
+            color: var(--light-text-color);
+            padding: 3rem 1.5rem 1.5rem 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+        
+        .portfolio-overlay h3 {
+            font-family: var(--heading-font);
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .portfolio-overlay p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* --- Our Process Section --- */
+        .process-section {
+            background-color: var(--secondary-color);
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-top: 4rem;
+            position: relative;
+        }
+        
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 5%;
+            right: 5%;
+            height: 2px;
+            background-color: #ddd;
+            z-index: 1;
+        }
+        
+        .process-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: 4px solid var(--secondary-color);
+        }
+        
+        .process-step h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        /* --- AI Design Brief Section --- */
+        .ai-brief-section {
+            background-color: var(--light-text-color);
+        }
+        .ai-brief-form {
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .ai-textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            resize: vertical;
+            font-family: var(--body-font);
+        }
+        #ai-brief-results {
+            margin-top: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            background: var(--secondary-color);
+        }
+        .generated-brief h4 {
+            font-family: var(--heading-font);
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .ai-loader {
+            text-align: center;
+        }
+
+        /* --- CTA Section --- */
+        .cta-section {
+            background-color: var(--accent-color);
+            color: var(--light-text-color);
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-family: var(--heading-font);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-button {
+            background-color: var(--light-text-color);
+            color: var(--accent-color);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .architect-hero h1 { font-size: 2.5rem; }
+            .process-steps { flex-direction: column; gap: 3rem; }
+            .process-steps::before { display: none; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <!-- The 'a' tag now links back to the main page (index.html) -->
+            <a href="index.html" class="logo">LAYDS</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="architect-hero">
+            <div class="architect-hero-content fade-in">
+                <h1>Our Architectural Vision</h1>
+                <p>We create spaces that are not only beautiful but also functional, sustainable, and timeless. Our designs are born from a deep understanding of your needs and a passion for innovation.</p>
+            </div>
+        </section>
+
+        <!-- Our Philosophy Section -->
+        <section class="philosophy-section content-section">
+            <div class="container slide-up">
+                <h2 class="section-title">Design Philosophy</h2>
+                <p class="section-subtitle">We believe that great architecture is a dialogue between form and function, light and shadow, nature and the built environment. Our philosophy is rooted in three core principles: client-centric design, sustainable practices, and contextual harmony.</p>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section class="portfolio-section content-section">
+            <div class="container slide-up">
+                <h2 class="section-title">Project Portfolio</h2>
+                <p class="section-subtitle">Explore a selection of our completed projects that showcase our commitment to design excellence and craftsmanship.</p>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop" alt="Modern Villa">
+                        <div class="portfolio-overlay">
+                            <h3>The Hillside Villa</h3>
+                            <p>A contemporary residence blending seamlessly with its natural surroundings.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop" alt="Urban Apartment">
+                        <div class="portfolio-overlay">
+                            <h3>Urban Loft Conversion</h3>
+                            <p>Transforming industrial space into a chic, modern living area.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1493809842744-8394f6ed734a?q=80&w=2070&auto=format&fit=crop" alt="Commercial Building">
+                        <div class="portfolio-overlay">
+                            <h3>Corporate Headquarters</h3>
+                            <p>A landmark office building designed for collaboration and innovation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Design Brief Assistant Section -->
+        <section class="ai-brief-section content-section">
+            <div class="container slide-up">
+                <h2 class="section-title">AI Design Brief Assistant</h2>
+                <p class="section-subtitle">Have an idea? Describe it below, and our AI will help you craft a preliminary design brief to get the conversation started.</p>
+                <div class="ai-brief-form">
+                    <textarea id="ai-prompt-input" class="ai-textarea" placeholder="For example: 'A modern, 3-bedroom family home with lots of natural light and an open-plan kitchen. It should be eco-friendly and have a small garden.'"></textarea>
+                    <button id="generate-brief-btn" class="cta-button">Generate Brief ✨</button>
+                </div>
+                <div id="ai-brief-results">
+                    <!-- AI generated content will appear here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Process Section -->
+        <section class="process-section content-section">
+            <div class="container slide-up">
+                <h2 class="section-title">Our Process</h2>
+                <p class="section-subtitle">We follow a structured and collaborative process to ensure your project is a success from concept to completion.</p>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-icon">01</div>
+                        <h4>Consultation</h4>
+                        <p>We start by listening to your ideas, goals, and requirements.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon">02</div>
+                        <h4>Concept Design</h4>
+                        <p>Developing initial sketches and design directions for your review.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon">03</div>
+                        <h4>3D Modeling</h4>
+                        <p>Bringing the design to life with realistic 3D visualizations and VR.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon">04</div>
+                        <h4>Construction</h4>
+                        <p>Overseeing the construction phase to ensure quality and adherence to design.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="cta-section content-section">
+            <div class="container slide-up">
+                <h2>Ready to Build Your Vision?</h2>
+                <p>Let's discuss how we can turn your architectural dreams into reality.</p>
+                <a href="javascript:void(0);" class="cta-button">Book a Consultation</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 LAYDS Constructions. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // --- Intersection Observer for Scroll Animations ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.slide-up').forEach(section => {
+            observer.observe(section);
+        });
+
+        // --- Gemini AI Design Brief Assistant ---
+        const generateButton = document.getElementById('generate-brief-btn');
+        const promptInput = document.getElementById('ai-prompt-input');
+        const resultsContainer = document.getElementById('ai-brief-results');
+
+        generateButton.addEventListener('click', async () => {
+            const userPrompt = promptInput.value;
+            if (!userPrompt.trim()) {
+                alert('Please describe your project idea in the text box.');
+                return;
+            }
+
+            // Show loader and disable button
+            resultsContainer.innerHTML = `<div class="ai-loader"><p>Analyzing your idea and crafting a brief...</p></div>`;
+            generateButton.disabled = true;
+            generateButton.textContent = 'Generating...';
+
+            // Construct the prompt for the Gemini API
+            const fullPrompt = `
+                Act as a world-class architect creating a preliminary design brief based on a client's request.
+                The client's request is: "${userPrompt}".
+                
+                Generate a response as a JSON object with the following structure:
+                {
+                  "projectVision": "A short, inspiring paragraph that captures the essence and overall vision of the project.",
+                  "keyFeatures": [
+                    "A list item describing a key functional or aesthetic feature.",
+                    "Another key feature.",
+                    "A third important feature derived from the user's prompt."
+                  ],
+                  "suggestedStyle": "A short paragraph describing a suitable architectural style (e.g., Modern, Minimalist, Industrial, Scandinavian, Biophilic) and why it fits the project."
+                }
+            `;
+
+            let chatHistory = [{ role: "user", parts: [{ text: fullPrompt }] }];
+            const payload = {
+                contents: chatHistory,
+                generationConfig: { responseMimeType: "application/json" }
+            };
+            const apiKey = ""; // API key is handled by the environment
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0]) {
+                    const jsonText = result.candidates[0].content.parts[0].text;
+                    const brief = JSON.parse(jsonText);
+
+                    // Display the formatted results
+                    resultsContainer.innerHTML = `
+                        <div class="generated-brief">
+                            <h4>Project Vision</h4>
+                            <p>${brief.projectVision}</p>
+                            
+                            <h4>Key Features</h4>
+                            <ul>
+                                ${brief.keyFeatures.map(feature => `<li>${feature}</li>`).join('')}
+                            </ul>
+                            
+                            <h4>Suggested Architectural Style</h4>
+                            <p>${brief.suggestedStyle}</p>
+                        </div>
+                    `;
+                } else {
+                    throw new Error("Invalid response structure from API.");
+                }
+
+            } catch (error) {
+                console.error("Error with Gemini API:", error);
+                resultsContainer.innerHTML = `<p style="color: #c0392b; text-align: center;">We're sorry, but there was an error generating the brief. Please try again later.</p>`;
+            } finally {
+                // Re-enable the button
+                generateButton.disabled = false;
+                generateButton.innerHTML = 'Generate Brief ✨';
+            }
+        });
+    </script>
+</body>
+</html>
